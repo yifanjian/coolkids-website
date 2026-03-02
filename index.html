@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COOL-kids | Innovating Pediatric Eye Care</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-blue': '#0ea5e9',
+                        'brand-dark': '#0f172a',
+                        'brand-accent': '#f59e0b',
+                        'brand-red': '#ef4444',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Hardware Accelerated GPU Rendering for smooth 60fps jumping */
+        .sunburst-animate {
+            animation: bounceAcross 6s infinite 0.1s; 
+            transform-origin: 0px 0px; 
+            
+            /* Forces Graphics Card to pre-calculate the layers to prevent lag/jerkiness */
+            will-change: transform, color, opacity; 
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        .burst-element {
+            fill: currentColor;
+            stroke: currentColor;
+        }
+
+        /* * The Pixar Keyframes - Translated to 3D GPU instructions.
+         * Base coordinate (0,0) is mapped perfectly to the top of the dotless 'ı' stem.
+         */
+        @keyframes bounceAcross {
+            /* 1. Enter and drop onto C */
+            0%   { transform: translate3d(-126px, -40px, 0) rotate(-90deg) scale(1); opacity: 0; color: #4ea8de; animation-timing-function: ease-in; }
+            3%   { transform: translate3d(-126px, 8px, 0) rotate(0deg) scale(1.3, 0.7); opacity: 1; color: #4ea8de; animation-timing-function: ease-out; } 
+            
+            /* 2. Jump to O1 */
+            6%   { transform: translate3d(-111px, -15px, 0) rotate(45deg) scale(0.9, 1.1); color: #4ea8de; animation-timing-function: ease-in; } 
+            9%   { transform: translate3d(-96px, 8px, 0) rotate(90deg) scale(1.3, 0.7); color: #56cfe1; animation-timing-function: ease-out; } 
+            
+            /* 3. Jump to O2 */
+            12%  { transform: translate3d(-82px, -15px, 0) rotate(135deg) scale(0.9, 1.1); color: #56cfe1; animation-timing-function: ease-in; } 
+            15%  { transform: translate3d(-68px, 8px, 0) rotate(180deg) scale(1.3, 0.7); color: #64dfdf; animation-timing-function: ease-out; } 
+            
+            /* 4. Jump to L */
+            18%  { transform: translate3d(-56px, -15px, 0) rotate(225deg) scale(0.9, 1.1); color: #64dfdf; animation-timing-function: ease-in; } 
+            21%  { transform: translate3d(-45px, 8px, 0) rotate(270deg) scale(1.3, 0.7); color: #72efdd; animation-timing-function: ease-out; } 
+            
+            /* 5. Jump to k (taller letter, hits slightly higher at y=-2) */
+            24%  { transform: translate3d(-31px, -20px, 0) rotate(315deg) scale(0.9, 1.1); color: #72efdd; animation-timing-function: ease-in; } 
+            28%  { transform: translate3d(-17px, -2px, 0) rotate(360deg) scale(1.3, 0.7); color: #f59e0b; animation-timing-function: ease-out; } 
+            
+            /* 6. Huge leap OVER the 'ı', directly to the taller 'd' */
+            32%  { transform: translate3d(-1px, -25px, 0) rotate(405deg) scale(0.9, 1.1); color: #f59e0b; animation-timing-function: ease-in; } 
+            36%  { transform: translate3d(15px, -2px, 0) rotate(450deg) scale(1.3, 0.7); color: #f59e0b; animation-timing-function: ease-out; } 
+            
+            /* 7. Hop down to the shorter 's' */
+            39%  { transform: translate3d(21px, -15px, 0) rotate(495deg) scale(0.9, 1.1); color: #f59e0b; animation-timing-function: ease-in; } 
+            42%  { transform: translate3d(28px, 8px, 0) rotate(540deg) scale(1.3, 0.7); color: #f59e0b; animation-timing-function: ease-out; } 
+            
+            /* 8. BACKWARD spring to land on the 'ı' */
+            47%  { transform: translate3d(14px, -25px, 0) rotate(495deg) scale(0.9, 1.1); color: #ef4444; animation-timing-function: ease-in; } 
+            52%  { transform: translate3d(0px, 0px, 0) rotate(450deg) scale(1.3, 0.7); color: #ef4444; animation-timing-function: ease-out; } 
+            
+            /* 9. Settling jiggle and hold */
+            55%  { transform: translate3d(0px, -6px, 0) rotate(450deg) scale(0.95, 1.05); color: #ef4444; animation-timing-function: ease-in; } 
+            57%  { transform: translate3d(0px, 0px, 0) rotate(450deg) scale(1, 1); opacity: 1; color: #ef4444; } 
+            
+            90%  { transform: translate3d(0px, 0px, 0) rotate(450deg) scale(1, 1); opacity: 1; color: #ef4444; } 
+            95%  { transform: translate3d(0px, 0px, 0) rotate(450deg) scale(1, 1); opacity: 0; color: #ef4444; } 
+            100% { transform: translate3d(-126px, -40px, 0) rotate(-90deg) scale(1); opacity: 0; color: #4ea8de; } 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased selection:bg-brand-blue selection:text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- COMPONENTS ---
+
+        const Logo = ({ isFooter = false }) => (
+            // Shrunk the viewBox dramatically to remove ALL top/bottom whitespace.
+            // overflow-visible allows the sunburst to bounce above the box without clipping.
+            <svg width={isFooter ? "220" : "250"} viewBox="0 0 250 70" xmlns="http://www.w3.org/2000/svg" className="transform hover:scale-105 transition duration-300 overflow-visible">
+                
+                {/* * Text moved to y=45. The font engine handles kerning perfectly when kept as string.
+                 * No more manual character jamming.
+                 */}
+                <g fontFamily="Inter, sans-serif" fontWeight="900" fontSize="36">
+                    <text x="0" y="45" fill="#4ea8de" letterSpacing="-1">C</text>
+                    <text x="26" y="45" fill="#56cfe1" letterSpacing="-1">O</text>
+                    <text x="54" y="45" fill="#64dfdf" letterSpacing="-1">O</text>
+                    <text x="82" y="45" fill="#72efdd" letterSpacing="-1">L</text>
+                    
+                    {/* Natural spacing restored using a single string for -kids (with dotless ı) */}
+                    <text x="104" y="45" fill="#f59e0b" letterSpacing="-1">-kıds</text>
+                </g>
+
+                {/* The Sunburst - Center perfectly aligned vertically and horizontally over the 'ı' stem */}
+                <g transform="translate(136, 17) scale(0.65)">
+                    <g className="sunburst-animate">
+                        <circle cx="0" cy="0" r="4.5" className="burst-element" stroke="none" />
+                        <line x1="0" y1="-6" x2="0" y2="-10.5" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="0" y1="6" x2="0" y2="10.5" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="-6" y1="0" x2="-10.5" y2="0" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="6" y1="0" x2="10.5" y2="0" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="-4.5" y1="-4.5" x2="-8" y2="-8" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="4.5" y1="-4.5" x2="8" y2="-8" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="-4.5" y1="4.5" x2="-8" y2="8" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                        <line x1="4.5" y1="4.5" x2="8" y2="8" strokeWidth="2.5" strokeLinecap="round" className="burst-element" fill="none" />
+                    </g>
+                </g>
+                
+                {/* Tagline - Period removed as requested */}
+                {!isFooter && <text x="2" y="65" fontFamily="Inter, sans-serif" fontWeight="700" fontSize="11.5" fill="#64748b" letterSpacing="0.5" textTransform="uppercase">Innovating Pediatric Eye Care</text>}
+            </svg>
+        );
+
+        const Navbar = ({ currentPage, setCurrentPage }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+            const navLinks = ['Home', 'Research', 'Team', 'Publications', 'Resources', 'Fun', 'Contact'];
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                // Reduced top padding (py-2) to pull content higher on the page
+                <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-lg border-b border-slate-200/50 py-1 shadow-sm' : 'bg-transparent py-2'}`}>
+                    <div className="max-w-7xl mx-auto px-6 md:px-10 flex justify-between items-center">
+                        <button onClick={() => setCurrentPage('Home')} className="flex items-center focus:outline-none pt-2">
+                            <Logo />
+                        </button>
+                        
+                        <div className="hidden lg:flex space-x-6 xl:space-x-8 font-medium text-slate-600 items-center">
+                            {navLinks.map(link => (
+                                <button key={link} onClick={() => setCurrentPage(link)} 
+                                    className={`text-sm xl:text-base font-semibold tracking-wide hover:text-brand-blue transition-colors ${currentPage === link ? 'text-brand-blue font-bold' : ''}`}>
+                                    {link}
+                                </button>
+                            ))}
+                            <button className="bg-brand-blue text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-sky-400 hover:shadow-lg hover:shadow-brand-blue/30 transition-all transform hover:-translate-y-0.5">
+                                Support Us
+                            </button>
+                        </div>
+
+                        <div className="lg:hidden flex items-center">
+                            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-800 focus:outline-none">
+                                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />}
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    {isOpen && (
+                        <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 py-4 px-6 flex flex-col space-y-4 shadow-xl max-h-[80vh] overflow-y-auto">
+                            {navLinks.map(link => (
+                                <button key={link} onClick={() => { setCurrentPage(link); setIsOpen(false); }} 
+                                    className={`text-left text-xl font-bold ${currentPage === link ? 'text-brand-blue' : 'text-slate-800'}`}>
+                                    {link}
+                                </button>
+                            ))}
+                            <button className="bg-brand-blue text-white w-full py-4 rounded-xl font-bold text-lg mt-4 shadow-lg shadow-brand-blue/20">
+                                Support Us
+                            </button>
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="py-16 bg-white border-t border-slate-100 text-center mt-auto">
+                <div className="mb-2 flex items-center justify-center">
+                    <Logo isFooter={true} />
+                </div>
+                <p className="text-slate-500 font-medium px-4 max-w-md mx-auto text-sm">Innovating Pediatric Eye Care<br/>Accelerated by NIH, BrightFocus Foundation, and RPB.</p>
+                <p className="mt-8 text-xs text-slate-400">&copy; 2026 COOL-kids Research Group. All rights reserved.</p>
+            </footer>
+        );
+
+        // --- PAGES ---
+
+        const Home = ({ setCurrentPage }) => (
+            <div className="animate-fade-in-up">
+                {/* Pulled the pt padding up by 32px (pt-24) to reduce the empty space below navigation */}
+                <header className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-6 text-center bg-gradient-to-b from-sky-50 via-white to-slate-50 overflow-hidden">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-200/40 blur-[100px] rounded-full pointer-events-none"></div>
+                    <div className="absolute top-1/2 right-0 translate-x-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-sky-200/30 blur-[120px] rounded-full pointer-events-none"></div>
+
+                    <div className="max-w-4xl mx-auto relative z-10 mt-10">
+                        <div className="inline-block mb-6 px-5 py-1.5 rounded-full border border-sky-200 bg-sky-50 backdrop-blur-md text-sm font-bold text-brand-blue tracking-wider uppercase shadow-sm">
+                            Next-Generation Retinal Imaging
+                        </div>
+                        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900">
+                            Engineering the Future of <br className="hidden md:block"/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-accent">
+                                Pediatric Eye Care
+                            </span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-slate-500 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
+                            Building portable, ultra-widefield imaging systems to save sight in the world's most vulnerable patients.
+                        </p>
+                        <div className="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onClick={() => setCurrentPage('Research')} className="bg-brand-accent text-white px-8 py-3.5 rounded-full font-bold text-lg hover:bg-amber-400 shadow-[0_10px_30px_rgba(245,158,11,0.3)] transition-all transform hover:-translate-y-1">Explore Our Tech</button>
+                            <button onClick={() => setCurrentPage('Team')} className="bg-white text-slate-700 border border-slate-200 px-8 py-3.5 rounded-full font-bold text-lg hover:bg-slate-50 hover:text-brand-blue shadow-sm transition-all transform hover:-translate-y-1">Meet the Team</button>
+                        </div>
+                    </div>
+                </header>
+
+                <section className="pb-16 pt-4 px-6 max-w-6xl mx-auto relative -mt-8 z-20">
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="rounded-[2rem] bg-white border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgb(0,0,0,0.06)] transition-all duration-300 group overflow-hidden flex flex-col cursor-pointer" onClick={() => setCurrentPage('Research')}>
+                            <div className="h-48 w-full bg-slate-100 relative overflow-hidden">
+                                <img src="optics.jpg" alt="Advanced Optics" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = 'https://placehold.co/600x400/e0f2fe/0ea5e9?text=Image+1:+Optics'; }} />
+                            </div>
+                            <div className="p-6 md:p-8 flex-grow flex flex-col justify-center">
+                                <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Advanced Optics</h3>
+                                <p className="text-slate-500 font-medium text-sm leading-relaxed">Swept-source OCT and non-mydriatic UWF imaging.</p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-[2rem] bg-white border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgb(0,0,0,0.06)] transition-all duration-300 md:-translate-y-4 group overflow-hidden flex flex-col cursor-pointer" onClick={() => setCurrentPage('Research')}>
+                            <div className="h-48 w-full bg-slate-100 relative overflow-hidden">
+                                <img src="ai.jpg" alt="Artificial Intelligence" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = 'https://placehold.co/600x400/fef3c7/f59e0b?text=Image+2:+AI'; }} />
+                            </div>
+                            <div className="p-6 md:p-8 flex-grow flex flex-col justify-center">
+                                <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Artificial Intelligence</h3>
+                                <p className="text-slate-500 font-medium text-sm leading-relaxed">Streaming volume reconstruction and automated detection.</p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-[2rem] bg-white border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgb(0,0,0,0.06)] transition-all duration-300 group overflow-hidden flex flex-col cursor-pointer" onClick={() => setCurrentPage('Research')}>
+                            <div className="h-48 w-full bg-slate-100 relative overflow-hidden">
+                                <img src="retina.jpg" alt="Pediatric Ophthalmology" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.src = 'https://placehold.co/600x400/d1fae5/10b981?text=Image+3:+Retina'; }} />
+                            </div>
+                            <div className="p-6 md:p-8 flex-grow flex flex-col justify-center">
+                                <h3 className="text-xl font-bold mb-2 text-slate-900 tracking-tight">Pediatric Ophthalmology</h3>
+                                <p className="text-slate-500 font-medium text-sm leading-relaxed">Deploying advanced engineering directly into the NICU.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+
+        const Research = () => (
+            <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                <div className="max-w-4xl mx-auto text-center mb-20">
+                    <h1 className="text-4xl md:text-6xl font-black mb-6 text-slate-900 tracking-tight">Engineering Clarity for the <span className="text-brand-accent">NICU</span></h1>
+                    <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">Translating advanced biophotonics into ergonomic, high-speed imaging solutions designed specifically for pediatric challenges.</p>
+                </div>
+                <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+                    <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                        <div className="inline-block px-4 py-1.5 bg-sky-50 text-brand-blue rounded-lg text-sm font-bold uppercase tracking-wider mb-6">Hardware Design</div>
+                        <h3 className="text-3xl font-bold mb-4 text-slate-900 tracking-tight">Handheld SS-OCT</h3>
+                        <p className="text-slate-500 mb-8 font-medium leading-relaxed text-lg">Ergonomic, lightweight systems utilizing swept-source laser technology to capture high-speed 3D volumes while the infant rests.</p>
+                        <div className="w-full h-72 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center text-slate-400 font-semibold text-lg">[Insert SS-OCT Schematic]</div>
+                    </div>
+                    <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] md:translate-y-12">
+                        <div className="inline-block px-4 py-1.5 bg-sky-50 text-brand-blue rounded-lg text-sm font-bold uppercase tracking-wider mb-6">Optical Engineering</div>
+                        <h3 className="text-3xl font-bold mb-4 text-slate-900 tracking-tight">Ultra-Widefield Imaging</h3>
+                        <p className="text-slate-500 mb-8 font-medium leading-relaxed text-lg">Custom optics expand the field of view dramatically, capturing a comprehensive map of the retina in a single, rapid scan without dilation.</p>
+                        <div className="w-full h-72 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center text-slate-400 font-semibold text-lg">[Insert UWF Scan]</div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const Team = () => {
+            const teamMembers = [
+                { name: "Yifan Jian, PhD", role: "The Engineer", desc: "Leading system design. Focused on high-speed, AI-assisted, ultra-widefield OCT platforms." },
+                { name: "J. Peter Campbell, MD, MPH", role: "The Doctor", desc: "Expertise in tele-ophthalmology, ROP screening algorithms, and pediatric disease management." },
+                { name: "Benjamin Young, MD", role: "The Doctor and Podcaster", desc: "Guiding surgical and medical retina applications to meet precise diagnostic needs." },
+                { name: "Alison Skalet, MD, PhD", role: "Ocular Oncology Lead", desc: "Directing advanced imaging in the detection and management of complex eye tumors." },
+                { name: "Placeholder Name, MS", role: "PhD Candidate", desc: "Researching AI-based streaming volume reconstruction for handheld optical coherence tomography." },
+                { name: "Placeholder Name, MD", role: "Clinical Research Fellow", desc: "Evaluating the clinical efficacy of non-mydriatic ultra-widefield imaging in the NICU setting." },
+                { name: "Placeholder Name, BS", role: "Optics Engineer", desc: "Developing custom lenses and ergonomic housings for next-generation pediatric imaging devices." }
+            ];
+
+            return (
+                <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                    <div className="max-w-3xl mx-auto text-center mb-20">
+                        <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">Meet the Team</h1>
+                        <p className="text-xl text-slate-500 font-medium">A collaborative group uniting optical engineers, clinical specialists, and visionary researchers.</p>
+                    </div>
+                    <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        {teamMembers.map(member => (
+                            <div key={member.name} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300">
+                                <div className="w-24 h-24 bg-sky-50 rounded-2xl mb-6 flex items-center justify-center text-brand-blue font-bold text-sm border border-sky-100 shadow-sm">[Photo]</div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-2 tracking-tight">{member.name}</h3>
+                                <div className="text-brand-accent font-bold text-sm uppercase tracking-wide mb-4">{member.role}</div>
+                                <p className="text-slate-500 text-base font-medium leading-relaxed">{member.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const Publications = () => {
+            const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018];
+            return (
+                <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">Research & Publications</h1>
+                        <p className="text-xl text-slate-500 font-medium">A track record of peer-reviewed innovation since 2018.</p>
+                    </div>
+                    <div className="max-w-4xl mx-auto">
+                        <div className="mb-16">
+                            <h2 className="text-3xl font-black text-brand-blue mb-8 border-b-2 border-slate-100 pb-4">2026</h2>
+                            <div className="space-y-6">
+                                <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:border-brand-blue/30 transition-colors">
+                                    <div className="text-sm font-bold text-slate-400 mb-2 tracking-wide">Journal of Biomedical Optics</div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug tracking-tight group-hover:text-brand-blue transition-colors">High-speed, ultra-widefield swept-source OCT for non-mydriatic pediatric retinal imaging.</h3>
+                                    <p className="text-slate-500 text-base mb-6 font-medium"><strong>Jian Y</strong>, Campbell JP, Young B, Skalet A, et al.</p>
+                                    <a href="#" className="inline-flex items-center text-sm font-bold text-brand-blue bg-sky-50 px-5 py-2.5 rounded-xl hover:bg-sky-100 transition-colors">Read Paper &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mb-16">
+                            <h2 className="text-3xl font-black text-brand-blue mb-8 border-b-2 border-slate-100 pb-4">2025</h2>
+                            <div className="space-y-6">
+                                <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:border-brand-blue/30 transition-colors">
+                                    <div className="text-sm font-bold text-slate-400 mb-2 tracking-wide">TVST</div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug tracking-tight group-hover:text-brand-blue transition-colors">AI-assisted volume reconstruction from streaming warp scans in handheld optical coherence tomography.</h3>
+                                    <p className="text-slate-500 text-base mb-6 font-medium"><strong>Jian Y</strong>, et al.</p>
+                                    <a href="#" className="inline-flex items-center text-sm font-bold text-brand-blue bg-sky-50 px-5 py-2.5 rounded-xl hover:bg-sky-100 transition-colors">Read Paper &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                        {years.slice(2).map(year => (
+                            <div key={year} className="mb-16">
+                                <h2 className="text-3xl font-black text-slate-300 mb-8 border-b-2 border-slate-100 pb-4">{year}</h2>
+                                <div className="bg-slate-50 p-8 rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-center">
+                                    <p className="text-slate-400 font-medium mb-4">Paste {year} publication citations here.</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const Resources = () => (
+            <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                    <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">Educational Media <span className="text-brand-blue">&</span> Open Source</h1>
+                    <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">We believe in accelerating pediatric imaging research through open collaboration and education. Access our podcasts, public repositories, datasets, and hardware designs below.</p>
+                </div>
+
+                {/* Podcast Section */}
+                <div className="max-w-6xl mx-auto bg-white border border-slate-100 p-8 md:p-12 rounded-[2.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col md:flex-row gap-10 items-center mb-16">
+                    <div className="md:w-1/2">
+                        <div className="inline-block px-4 py-1.5 bg-brand-accent/10 text-brand-accent rounded-lg text-sm font-bold uppercase tracking-wider mb-6">Podcast</div>
+                        <h3 className="text-3xl font-black mb-4 text-slate-900 tracking-tight">Eyes for Ears</h3>
+                        <p className="text-slate-500 mb-8 font-medium text-lg leading-relaxed">Co-hosted by our very own Dr. Ben Young, <em>Eyes for Ears</em> is a premier ophthalmology podcast designed to help trainees, residents, and clinicians tackle OKAPs, board reviews, and clinical practice.</p>
+                        <div className="flex space-x-4">
+                            <a href="https://eyesforears.net/" target="_blank" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md">Visit Website</a>
+                            <a href="https://podcasts.apple.com/us/podcast/eyes-for-ears/id1449421786" target="_blank" className="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 hover:text-brand-blue transition-colors shadow-sm">Apple Podcasts</a>
+                        </div>
+                    </div>
+                    <div className="md:w-1/2 w-full flex justify-center">
+                        <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameBorder="0" height="450" style={{width:'100%', maxWidth:'660px', overflow:'hidden', borderRadius:'15px', background:'transparent', boxShadow: '0 10px 30px rgba(0,0,0,0.05)'}} sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/eyes-for-ears/id1449421786"></iframe>
+                    </div>
+                </div>
+
+                {/* Open Source Projects Section */}
+                <div className="max-w-6xl mx-auto">
+                    <h3 className="text-2xl font-black mb-8 text-slate-900 tracking-tight text-center md:text-left">Open Source Projects & Datasets</h3>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300">
+                            <div className="w-14 h-14 bg-slate-900 text-white rounded-xl flex items-center justify-center mb-6">
+                                <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-3 text-slate-900 tracking-tight">Streaming Volume Reconstruction</h3>
+                            <p className="text-slate-500 mb-6 font-medium text-sm leading-relaxed">Source code for our AI-assisted volume reconstruction from streaming warp scans.</p>
+                            <a href="#" className="text-brand-blue font-bold text-sm hover:underline">View on GitHub &rarr;</a>
+                        </div>
+                        <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300">
+                            <div className="w-14 h-14 bg-sky-100 text-brand-blue rounded-xl flex items-center justify-center mb-6">
+                                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-3 text-slate-900 tracking-tight">Handheld OCT Hardware</h3>
+                            <p className="text-slate-500 mb-6 font-medium text-sm leading-relaxed">CAD files and 3D printing models for our custom ergonomic handheld probe housings.</p>
+                            <a href="#" className="text-brand-blue font-bold text-sm hover:underline">Download Files &rarr;</a>
+                        </div>
+                        <div className="bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:-translate-y-2 transition-transform duration-300">
+                            <div className="w-14 h-14 bg-amber-100 text-brand-accent rounded-xl flex items-center justify-center mb-6">
+                                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                            </div>
+                            <h3 className="text-xl font-bold mb-3 text-slate-900 tracking-tight">Public Datasets</h3>
+                            <p className="text-slate-500 mb-6 font-medium text-sm leading-relaxed">Anonymized, open-access datasets of pediatric retinal scans for algorithm training.</p>
+                            <a href="#" className="text-brand-blue font-bold text-sm hover:underline">Access Database &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const Fun = () => (
+            <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                    <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">Life at <span className="text-brand-accent">COOL-kids</span></h1>
+                    <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">Because saving sight is serious work, but we don't take ourselves too seriously. A glimpse into our lab culture, team outings, and everyday antics.</p>
+                </div>
+                
+                <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="bg-white p-4 rounded-xl shadow-md border border-slate-100 rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                        <div className="bg-slate-200 w-full h-64 rounded-lg flex items-center justify-center text-slate-400 font-bold mb-4">[Insert Dumpling Photo]</div>
+                        <p className="text-center font-medium text-slate-700 font-sans pb-2">Annual Lab Dumpling Night 🥟</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-xl shadow-md border border-slate-100 -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                        <div className="bg-slate-200 w-full h-64 rounded-lg flex items-center justify-center text-slate-400 font-bold mb-4">[Insert Hike Photo]</div>
+                        <p className="text-center font-medium text-slate-700 font-sans pb-2">Team Retreat at Mount Hood 🏔️</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-xl shadow-md border border-slate-100 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+                        <div className="bg-slate-200 w-full h-64 rounded-lg flex items-center justify-center text-slate-400 font-bold mb-4">[Insert Lab Photo]</div>
+                        <p className="text-center font-medium text-slate-700 font-sans pb-2">When the laser finally aligns at 2 AM ☕</p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const Contact = () => (
+            <div className="animate-fade-in-up pt-40 pb-20 px-6">
+                <div className="max-w-6xl mx-auto bg-white rounded-[3rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden flex flex-col md:flex-row">
+                    <div className="md:w-5/12 bg-gradient-to-br from-brand-blue to-teal-400 p-12 text-white flex flex-col justify-between">
+                        <div>
+                            <h2 className="text-4xl font-black mb-6 tracking-tight">Get in Touch</h2>
+                            <p className="text-sky-100 text-lg font-medium mb-12">Whether you are interested in collaborating, donating, or joining the lab, we would love to hear from you.</p>
+                            
+                            <div className="space-y-6">
+                                <div className="flex items-start">
+                                    <svg className="w-6 h-6 mr-4 mt-1 text-sky-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <div>
+                                        <p className="font-bold text-lg">Location</p>
+                                        <p className="text-sky-100 font-medium">Casey Eye Institute<br/>Oregon Health & Science University<br/>Portland, OR 97239</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <svg className="w-6 h-6 mr-4 mt-1 text-sky-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div>
+                                        <p className="font-bold text-lg">Email</p>
+                                        <p className="text-sky-100 font-medium">contact@coolkidslab.org</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="md:w-7/12 p-12 lg:p-16">
+                        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                            <div className="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">First Name</label>
+                                    <input type="text" className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all" placeholder="Jane" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
+                                    <input type="text" className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all" placeholder="Doe" />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+                                <input type="email" className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all" placeholder="jane@example.com" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
+                                <textarea rows="4" className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all resize-none" placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button className="w-full bg-brand-dark text-white font-bold text-lg py-4 rounded-xl hover:bg-slate-800 transition-colors shadow-md mt-4">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // --- MAIN APP COMPONENT ---
+
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('Home');
+
+            useEffect(() => { window.scrollTo(0, 0); }, [currentPage]);
+
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'Home': return <Home setCurrentPage={setCurrentPage} />;
+                    case 'Research': return <Research />;
+                    case 'Team': return <Team />;
+                    case 'Publications': return <Publications />;
+                    case 'Resources': return <Resources />;
+                    case 'Fun': return <Fun />;
+                    case 'Contact': return <Contact />;
+                    default: return <Home setCurrentPage={setCurrentPage} />;
+                }
+            };
+
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                    <main className="flex-grow flex flex-col justify-start">
+                        {renderPage()}
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
