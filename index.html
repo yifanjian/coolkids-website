@@ -566,8 +566,8 @@
                         <h3 className="text-3xl font-black mb-4 text-slate-900 tracking-tight">Eyes for Ears</h3>
                         <p className="text-slate-500 mb-8 font-medium text-lg leading-relaxed">Co-hosted by our very own Dr. Ben Young, <em>Eyes for Ears</em> is a premier ophthalmology podcast designed to help trainees, residents, and clinicians tackle OKAPs, board reviews, and clinical practice.</p>
                         <div className="flex space-x-4">
-                            <a href="https://eyesforears.net/" target="_blank" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md">Visit Website</a>
-                            <a href="https://podcasts.apple.com/us/podcast/eyes-for-ears/id1449421786" target="_blank" className="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 hover:text-brand-blue transition-colors shadow-sm">Apple Podcasts</a>
+                            <a href="https://eyesforears.net/" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md">Visit Website</a>
+                            <a href="https://podcasts.apple.com/us/podcast/eyes-for-ears/id1449421786" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 hover:text-brand-blue transition-colors shadow-sm">Apple Podcasts</a>
                         </div>
                     </div>
                     <div className="md:w-1/2 w-full flex justify-center">
@@ -575,11 +575,28 @@
                     </div>
                 </div>
 
-                <div className="max-w-6xl mx-auto bg-white border border-slate-100 p-8 md:p-10 rounded-[2.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] mb-16">
-                    <div className="inline-block px-4 py-1.5 bg-sky-50 text-brand-blue rounded-lg text-sm font-bold uppercase tracking-wider mb-6">Podcast</div>
-                    <h3 className="text-3xl font-black mb-4 text-slate-900 tracking-tight">AAO Expert Insight</h3>
-                    <p className="text-slate-500 mb-8 font-medium text-lg leading-relaxed">Dr. Ben Young also hosts the American Academy of Ophthalmology&apos;s <em>Expert Insight</em> audio series, featuring practical conversations and expert perspectives for ophthalmologists.</p>
-                    <a href="https://www.aao.org/education/audio/experts-insight" target="_blank" rel="noopener noreferrer" className="inline-flex items-center bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md">Listen on AAO</a>
+                <div className="max-w-6xl mx-auto bg-white border border-slate-100 p-8 md:p-12 rounded-[2.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col md:flex-row gap-10 items-center mb-16">
+                    <div className="md:w-1/2">
+                        <div className="inline-block px-4 py-1.5 bg-sky-50 text-brand-blue rounded-lg text-sm font-bold uppercase tracking-wider mb-6">Podcast</div>
+                        <h3 className="text-3xl font-black mb-4 text-slate-900 tracking-tight">AAO Experts InSight</h3>
+                        <p className="text-slate-500 mb-8 font-medium text-lg leading-relaxed">Dr. Ben Young is also a host of the American Academy of Ophthalmology&apos;s <em>Experts InSight</em> podcast. You can browse and play episodes directly below.</p>
+                        <div className="flex flex-wrap gap-3">
+                            <a href="https://www.aao.org/education/audio/experts-insight" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md">AAO Page</a>
+                            <a href="https://podcasts.apple.com/us/podcast/experts-insight/id1591662500" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 hover:text-brand-blue transition-colors shadow-sm">Apple Podcasts</a>
+                            <a href="https://open.spotify.com/show/0wt1KED3C1w6B4SNwfImIG" target="_blank" rel="noopener noreferrer" className="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 hover:text-brand-blue transition-colors shadow-sm">Spotify</a>
+                        </div>
+                    </div>
+                    <div className="md:w-1/2 w-full flex justify-center">
+                        <iframe
+                            title="AAO Experts InSight Podcast Episodes"
+                            src="https://play.libsyn.com/embed/destination/id/1939199/height/412/theme/modern/size/large/thumbnail/no/custom-color/341c64/playlist-height/200/direction/backward"
+                            height="412"
+                            width="100%"
+                            scrolling="no"
+                            style={{ border: 'none', borderRadius: '15px', maxWidth: '660px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}
+                            allow="autoplay *; encrypted-media *; fullscreen *"
+                        ></iframe>
+                    </div>
                 </div>
 
                 {/* Open Source Projects Section */}
